@@ -12,7 +12,7 @@
   "postCreateCommand": "task deps",
   "remoteEnv": {
     "DATABASE": "duckdb",
-    "FILENAME": "jaffle_shop.duckdb"
+    "FILENAME": "daap_payroll.duckdb"
   },
   // Configure tool-specific properties
   "customizations": {

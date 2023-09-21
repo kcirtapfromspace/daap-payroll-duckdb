@@ -1,21 +1,21 @@
+# models/sources.yml
+
 version: 2
 
 sources:
-  - name: ecom
-    schema: "{{ env_var('JAFFLE_RAW_SCHEMA', 'jaffle_raw') }}"
-    description: E-commerce data
+  - name: employee_data
+    schema: "{{ env_var('EMPLOYEE_RAW_SCHEMA', 'employee_raw') }}"
+    description: Employee data
     meta:
-      external_location: "read_csv_auto('./jaffle-data/{name}.csv', header=1)"
+      external_location: "read_csv_auto('./daap-sample-data/{name}.csv', header=1)"
     tables:
-      - name: raw_customers
-        description: One record per person who has purchased one or more items
-      - name: raw_orders
-        description: One record per order (consisting of one or more order items)
-      - name: raw_items
-        description: Items included in an order
-      - name: raw_stores
-        description: One record per physical store location
-      - name: raw_products
-        description: One record per SKU for items sold in stores
-      - name: raw_supplies
-        description: One record per supply per SKU of items sold in stores
+      - name: steps_sample_data
+        description: Raw data about employees.
+  - name: cpps_active
+    schema: "{{ env_var('CPPS_ACTIVE_RAW_SCHEMA', 'cpps_active_raw') }}"
+    description: CPPS Active Employee data
+    meta:
+      external_location: "read_csv_auto('./daap-sample-data/{name}.csv', header=1)"
+    tables:
+      - name: cpps_active_employees
+        description: Raw data about active cpps employees.

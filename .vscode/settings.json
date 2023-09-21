@@ -5,5 +5,14 @@
   "[jinja-sql]": {
     "editor.defaultFormatter": "dorzey.vscode-sqlfluff",
     "editor.formatOnSave": false
-  }
+  },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "DuckDB",
+      "name": "daap_payroll",
+      "database": "/Users/patrickdeutsch/repos/dbt-labs/daap-payroll-duckdb/reports/daap_payroll.duckdb"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
 }

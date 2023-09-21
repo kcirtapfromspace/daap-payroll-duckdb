@@ -2,19 +2,18 @@ with
 
 source as (
 
-    select * from {{ source('ecom', 'raw_customers') }}
+    select * from {{ source('cpps_active', 'cpps_active_employees') }}
 
 ),
 
 renamed as (
 
     select
-
         ----------  ids
-        id as customer_id,
-
+        emp_id as employee_id,
+        
         ---------- properties
-        name as customer_name
+        is_active
 
     from source
 

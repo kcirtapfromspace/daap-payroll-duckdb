@@ -1,59 +1,36 @@
+# models/models.yml
+
 version: 2
 
 models:
-  - name: stg_customers
-    description: Customer data with basic cleaning and transformation applied, one row per customer.
+  - name: stg_employees
+    description: Employee data with basic cleaning and transformation applied, one row per employee.
     columns:
-      - name: customer_id
-        description: The unique key for each customer.
+      - name: employee_id
+        description: The unique identifier for each employee.
         tests:
           - not_null
-          - unique
 
-  - name: stg_locations
-    description: List of open locations with basic cleaning and transformation applied, one row per location.
+  - name: stg_employee_ssn
+    description: Employee SSN data with basic cleaning and transformation applied, one row per employee.
     columns:
-      - name: location_id
-        description: The unique key for each location.
+      - name: employee_ssn
+        description: The Social Security Number for each employee.
         tests:
           - not_null
-          - unique
 
-  - name: stg_order_items
-    description: Individual food and drink items that make up our orders, one row per item.
+  - name: stg_employee_name
+    description: Employee name data with basic cleaning and transformation applied, one row per employee.
     columns:
-      - name: order_item_id
-        description: The unique key for each order item.
+      - name: employee_name
+        description: The name of the employee.
         tests:
           - not_null
-          - unique
 
-  - name: stg_orders
-    description: Order data with basic cleaning and transformation applied, one row per order.
+  - name: stg_cpps_employees
+    description: Employee name data with basic cleaning and transformation applied, one row per employee.
     columns:
-      - name: order_id
-        description: The unique key for each order.
+      - name: employee_id
+        description: The id of the employee.
         tests:
           - not_null
-          - unique
-
-  - name: stg_products
-    description: Product (food and drink items that can be ordered) data with basic cleaning and transformation applied, one row per product.
-    columns:
-      - name: product_id
-        description: The unique key for each product.
-        tests:
-          - not_null
-          - unique
-
-  - name: stg_supplies
-    description: >
-      List of our supply expenses data with basic cleaning and transformation applied.
-
-      One row per supply cost, not per supply. As supply costs fluctuate they receive a new row with a new UUID. Thus there can be multiple rows per supply_id.
-    columns:
-      - name: supply_uuid
-        description: The unique key of our supplies per cost.
-        tests:
-          - not_null
-          - unique

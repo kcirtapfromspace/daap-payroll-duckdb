@@ -1,60 +1,57 @@
 version: 2
 
 metrics:
-  - name: revenue
-    label: Revenue
-    model: ref('orders')
-    description: "Income from all orders less tax"
-
-    calculation_method: sum
-    expression: order_total - tax_paid
-
-    timestamp: ordered_at
+  - name: active_employees
+    label: Active Employees
+    model: ref('employee_status')
+    description: "Number of currently active employees"
+    calculation_method: count
+    expression: emp_id
+    filters:
+      - field: employee_status
+        operator: equals
+        value: "Active"
+    timestamp: employment_status_date
     time_grains: [day, week, month, quarter, year]
-
     dimensions:
-      - location_name
-      - is_first_order
+      - org_code
 
-  - name: customers
-    label: Customers
-    model: ref('orders')
-    description: "Number of customers with a sale"
-
-    calculation_method: count_distinct
-    expression: customer_id
-
-    timestamp: ordered_at
+  - name: inactive_employees
+    label: Inactive Employees
+    model: ref('employee_status')
+    description: "Number of currently inactive employees"
+    calculation_method: count
+    expression: emp_id
+    filters:
+      - field: employee_status
+        operator: equals
+        value: "Inactive"
+    timestamp: employment_status_date
     time_grains: [day, week, month, quarter, year]
-
     dimensions:
-      - location_name
+      - org_code
 
-  - name: expenses
-    label: Expenses
-    model: ref('orders')
-    description: "Total expenses per order"
-
-    calculation_method: sum
-    expression: order_cost
-
-    timestamp: ordered_at
-    time_grains: [day, week, month, quarter, year]
-
-    dimensions:
-      - location_name
-      - is_first_order
-
-  - name: gross_profit
-    label: Gross Profit
-    description: "Revenue minus expenses"
-
+  - name: employee_churn_rate
+    label: Employee Churn Rate
+    description: "Rate at which employees are becoming inactive"
     calculation_method: derived
-    expression: "{{ metric('revenue') }} - {{ metric('expenses') }}"
-
-    timestamp: ordered_at
-    time_grains: [day, week, month, quarter, year]
-
+    expression: "{{ metric('inactive_employees') }} / {{ metric('active_employees') }}"
+    timestamp: employment_status_date
+    time_grains: [week, month, quarter, year]
     dimensions:
-      - location_name
-      - is_first_order
+      - org_code
+
+  - name: average_tenure
+    label: Average Tenure
+    model: ref('employee_status')
+    description: "Average length of time an employee remains active"
+    calculation_method: avg
+    expression: DATEDIFF('day', job_begin_date, job_end_date)
+    filters:
+      - field: employee_status
+        operator: equals
+        value: "Active"
+    timestamp: employment_status_date
+    time_grains: [month, quarter, year]
+    dimensions:
+      - org_code

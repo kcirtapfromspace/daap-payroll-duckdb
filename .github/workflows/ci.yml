@@ -16,7 +16,7 @@ jobs:
           python -m pip install -r requirements.txt
           pipx install meltano && meltano install
       - name: Run Extract and Load
-        run: meltano run tap-jaffle-shop target-duckdb
+        run: meltano run tap-csv target-duckdb
       - name: Install dbt Dependencies
         run: dbt deps
       - name: dbt Build
